@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tính Độ Nhạy OB52 Chuẩn</title>
+
+<style>
+body{
+    margin:0;
+    font-family:Arial, sans-serif;
+    background:linear-gradient(135deg,#141e30,#243b55);
+    color:white;
+    text-align:center;
+}
+.container{
+    max-width:420px;
+    margin:auto;
+    padding:20px;
+}
+h1{margin-bottom:20px;}
+select,button{
+    width:100%;
+    padding:12px;
+    margin:8px 0;
+    border:none;
+    border-radius:10px;
+    font-size:16px;
+}
+button{
+    background:#ff9800;
+    font-weight:bold;
+    cursor:pointer;
+}
+button:hover{background:#ffc107;}
+.result{
+    margin-top:20px;
+    background:#111;
+    padding:15px;
+    border-radius:12px;
+    text-align:left;
+}
+</style>
+</head>
+
+<body>
+<div class="container">
+<h1>🎯 Tính Độ Nhạy OB52</h1>
+
+<select id="brand">
+<option value="0">iPhone</option>
+<option value="5">Samsung cao cấp</option>
+<option value="10">Samsung tầm trung</option>
+<option value="12">Xiaomi / Redmi / Poco</option>
+<option value="14">Oppo / Realme</option>
+<option value="15">Vivo / iQOO</option>
+<option value="18">Huawei / Honor</option>
+<option value="-5">ROG / RedMagic</option>
+<option value="8">Google Pixel</option>
+<option value="20">Itel / Tecno / Infinix</option>
+<option value="12">Khác</option>
+</select>
+
+<select id="power">
+<option value="0">Máy mạnh</option>
+<option value="10">Máy trung bình</option>
+<option value="18">Máy yếu</option>
+</select>
+
+<select id="issue">
+<option value="0">Bình thường</option>
+<option value="15">Nặng tâm</option>
+<option value="10">Khó kéo đầu</option>
+<option value="-10">Lố đầu</option>
+</select>
+
+<select id="hand">
+<option value="0">Tay trung bình</option>
+<option value="-8">Tay kéo mạnh</option>
+<option value="10">Tay kéo nhẹ</option>
+</select>
+
+<button onclick="tinh()">TÍNH ĐỘ NHẠY</button>
+
+<div class="result" id="result"></div>
+
+</div>
+
+<script>
+function tinh(){
+
+let brand = parseInt(document.getElementById("brand").value);
+let power = parseInt(document.getElementById("power").value);
+let issue = parseInt(document.getElementById("issue").value);
+let hand = parseInt(document.getElementById("hand").value);
+
+// Base mới
+let base = 135;
+
+// Công thức mới
+let general = base + brand + power + issue + hand;
+
+// Giữ trong khoảng hợp lý
+general = Math.max(90, Math.min(170, general));
+
+let redDot = general - 5;
+let scope2x = general - 15;
+let scope4x = general - 25;
+let sniper = general - 45;
+let freeLook = general - 35;
+
+document.getElementById("result").innerHTML = `
+<b>Độ nhạy đề xuất:</b><br><br>
+Nhìn xung quanh: ${general}<br>
+Ống ngắm đỏ: ${redDot}<br>
+2x: ${scope2x}<br>
+4x: ${scope4x}<br>
+AWM: ${sniper}<br>
+Camera tự do: ${freeLook}
+`;
+}
+</script>
+
+</body>
+</html>
